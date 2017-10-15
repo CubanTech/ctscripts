@@ -81,7 +81,7 @@ fs.readFile(path_input, function(err, input_data) {
   input_data = JSON.parse(input_data)
   console.log('Loaded input file ...')
   fs.readFile(path_template, function(err, template) {
-    template = eval('template = ')
+    template = eval('template = ' + template)
     console.log('Instantiate template ...')
     out = jsonT(input_data, template)
     fs.writeFile(path_output, out.toString(), function(err) {
