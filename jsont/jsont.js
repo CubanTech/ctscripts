@@ -84,6 +84,26 @@ fs.readFile(path_input, function(err, input_data) {
     template = eval('template = ' + template)
     console.log('Instantiate template ...')
     out = jsonT(input_data, template)
+    console.log('Parsing as JSON ...')
+    try {
+      out = JSON.parse(out)
+      if (out[0].id) {
+        var cache = {}
+        var new_out = []
+        for (var i = 0; i < out.length; ++i) {
+          var item = out[i]
+          if (!cache[item.id]) {
+            new_out.push(item)
+          }
+          cache[item.id] = item
+        }
+        console.log('JSON data ' + out.length + ' => ' + new_out.length)
+        out = JSON.stringify(new_out, null, 2)
+      }
+    }
+    catch(e) {
+      console.log('JSON parsing failed' + e.message)
+    }
     fs.writeFile(path_output, out.toString(), function(err) {
       if (err) {
         console.log(err)
