@@ -86,7 +86,7 @@ fs.readFile(path_input, function(err, input_data) {
     out = jsonT(input_data, template)
     console.log('Parsing as JSON ...')
     try {
-      out = JSON.parse(out)
+      var out = JSON.parse(out)
       if (out[0].id) {
         var cache = {}
         var new_out = []
@@ -98,8 +98,9 @@ fs.readFile(path_input, function(err, input_data) {
           cache[item.id] = item
         }
         console.log('JSON data ' + out.length + ' => ' + new_out.length)
-        out = JSON.stringify(new_out, null, 2)
+        out = new_out
       }
+      out = JSON.stringify(out, null, 2)
     }
     catch(e) {
       console.log('JSON parsing failed' + e.message)
