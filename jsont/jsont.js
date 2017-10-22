@@ -77,6 +77,16 @@ var path_output = process.argv[4]
 
 var fs = require('fs')
 
+/**
+ * Helpers
+ */
+
+function hash(method) {
+  return function (s) {
+    return require('crypto').createHash(method).update(s).digest('hex')
+  }
+}
+
 fs.readFile(path_input, function(err, input_data) {
   input_data = JSON.parse(input_data)
   console.log('Loaded input file ...')
