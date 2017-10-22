@@ -87,12 +87,11 @@ function hash(method) {
   }
 }
 
-fs.readFile(path_input, function(err, input_data) {
-  input_data = JSON.parse(input_data)
-  console.log('Loaded input file ...')
-  fs.readFile(path_template, function(err, template) {
-    template = eval('template = ' + template)
-    console.log('Instantiate template ...')
+function render_template(path_template) {
+  var template = fs.readFileSync(path_template).toString()
+  template = eval('template = ' + template)
+  console.log('Instantiate template ...')
+  return function (input_data) {
     out = jsonT(input_data, template)
     console.log('Parsing as JSON ...')
     try {
@@ -115,13 +114,20 @@ fs.readFile(path_input, function(err, input_data) {
     catch(e) {
       console.log('JSON parsing failed' + e.message)
     }
-    fs.writeFile(path_output, out.toString(), function(err) {
-      if (err) {
-        console.log(err)
-        return
-      }
-      console.log('Success!')
-    })
+    return out
+  }
+}
+
+fs.readFile(path_input, function(err, input_data) {
+  input_data = JSON.parse(input_data)
+  console.log('Loaded input file ...')
+  var out = render_template(path_template)(input_data)
+  fs.writeFile(path_output, out.toString(), function(err) {
+    if (err) {
+      console.log(err)
+      return
+    }
+    console.log('Success!')
   })
 })
 
