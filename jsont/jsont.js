@@ -87,10 +87,7 @@ function hash(method) {
   }
 }
 
-function render_template(path_template) {
-  var template = fs.readFileSync(path_template).toString()
-  template = eval('template = ' + template)
-  console.log('Instantiate template ...')
+function render_template(template) {
   return function (input_data) {
     out = jsonT(input_data, template)
     console.log('Parsing as JSON ...')
@@ -118,10 +115,29 @@ function render_template(path_template) {
   }
 }
 
+function render_template_file(path_template) {
+  var template = fs.readFileSync(path_template).toString()
+  template = eval('template = ' + template)
+  console.log('Instantiate template ...')
+  return render_template(template)
+}
+
+function render_file(path) {
+  var template = fs.readFileSync(path).toString()
+  template = eval('template = { "self" : ' + JSON.stringify(template) + ' }')
+  return render_template(template)
+}
+
+function wrap(f, decorator) {
+  return function(input_data) {
+    return decorator(f(input_data))
+  }
+}
+
 fs.readFile(path_input, function(err, input_data) {
   input_data = JSON.parse(input_data)
   console.log('Loaded input file ...')
-  var out = render_template(path_template)(input_data)
+  var out = render_template_file(path_template)(input_data)
   fs.writeFile(path_output, out.toString(), function(err) {
     if (err) {
       console.log(err)
