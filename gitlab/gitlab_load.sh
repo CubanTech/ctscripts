@@ -11,14 +11,15 @@ if [ -z "$INSTANCE" -o -z "$USERNAME" -o -z "$GITLAB_REPOS_BASEURL" ]; then
   exit 1;
 fi
 
-ACTIVE_USER=`gitlab -g "$INSTANCE" current-user get`
-ACTIVE_ID=`gitlab -g "$INSTANCE" user list | tr '\n' ':' | sed "s/::/|/g" | tr '|' '\n' | grep "$ACTIVE_USER" | cut -d ':' -f2`
+USERNAME_GITLAB=`echo "$USERNAME" | tr '.' '_'`
+ACTIVE_USER=`gitlab -g "$INSTANCE" current-user get | cut -d ":" -f2`
+ACTIVE_ID=`gitlab -g "$INSTANCE" user list --search $ACTIVE_USER | tr '\n' ':' | sed "s/::/|/g" | tr '|' '\n' | grep "$ACTIVE_USER" | cut -d ':' -f2`
 
 echo "Connecting to $INSTANCE Gitlab as $ACTIVE_USER ($ACTIVE_ID)"
 echo "Repositories base URL $GITLAB_REPOS_BASEURL"
 echo "Importing $USERNAME repositories"
 
-USERID=`gitlab -g "$INSTANCE" user create --email "$USERNAME@cuban.tech" --password '12345678' --username "$USERNAME" --name "$USERNAME @ github" | grep '^id' | cut -d ':' -f2`
+USERID=`gitlab -g "$INSTANCE" user create --email "$USERNAME@cuban.tech" --password '12345678' --username "$USERNAME_GITLAB" --name "$USERNAME @ github" | grep '^id' | cut -d ':' -f2`
 
 echo "[x] - Create Gitlab user $USERNAME ($USERID) ... ok"
 
