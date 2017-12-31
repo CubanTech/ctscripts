@@ -1,0 +1,19 @@
+
+neo4j:
+  image: neo4j:latest
+  ports:
+    - "7474:7474"
+    - "7687:7687"
+    - "1337:1337"
+  volumes:
+    - /opt/data
+jupyterscipy:
+  image: cubantech/neo4j-notebook
+  command: start-notebook.sh
+  environment:
+    - "PASSWORD=qwerty"
+  ports:
+    - "8888:8888"
+  links:
+    - neo4j:neo4j
+
