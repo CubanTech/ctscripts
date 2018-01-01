@@ -1,0 +1,21 @@
+
+version: '3'
+
+services:
+
+  limesurvey:
+    image: acspri/limesurvey
+    ports:
+      - 30083:80
+    environment:
+      LIMESURVEY_DB_PASSWORD: $PWDDB
+      LIMESURVEY_ADMIN_USER: admin
+      LIMESURVEY_ADMIN_PASSWORD: $PWDADMIN
+      LIMESURVEY_ADMIN_NAME: CubanTech Forms admin
+      LIMESURVEY_ADMIN_EMAIL: webmaster@cuban.tech
+
+  mysql:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: $PWDDB
+
