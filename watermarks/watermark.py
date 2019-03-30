@@ -99,8 +99,8 @@ try:
               pass
         except KeyboardInterrupt, e:
             raise e
-        except:
-            print('Skipping : ' + file_name)
+        except Exception, e:
+            print('Skipping %s : %s' % (file_name, e))
 finally:
     if watermark:
         watermark.close()
