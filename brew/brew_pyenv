@@ -1,0 +1,29 @@
+
+PYVER=$(brew list --versions python | cut -d ' ' -f2)
+PYMIN=$(echo "$PYVER" | cut -d. -f1,2)
+PYPKG=$(echo "python@$PYMIN")
+
+
+# Uninstall pyenv version
+echo "Uninstalling $PYVER ..."
+pyenv uninstall $PYVER
+pyenv rehash
+
+# Create version symlink
+cd ~/.pyenv/versions
+ln -sfv "$(brew --prefix $PYPKG)" $PYMIN
+
+# Link include folder
+cd "$(brew --prefix $PYPKG)"
+ln -sfv Frameworks/Python.framework/Versions/$PYMIN/include/python$PYMIN include
+
+# Link executable commands
+cd "$(brew --prefix $PYPKG)/bin"
+ln -sfv idle3 idle
+ln -sfv pip3 pip 
+ln -sfv python3 python
+ln -sfv wheel3 wheel
+
+# Rehash
+pyenv rehash
+
