@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+
+from pdf2docx import parse
+import argparse
+
+parser = argparse.ArgumentParser(description='Convert PDF file to DOCX format')
+parser.add_argument('-if', dest='input', metavar='PATH', type=str,
+                    help='Path to input PDF file')
+parser.add_argument('-of', dest='output',metavar='PATH',  type=str,
+                    help='Path to output DOCX file')
+
+args = parser.parse_args()
+
+pdf_file = args.input
+word_file = args.output
+parse(pdf_file, word_file, start=0, end=None)
+
