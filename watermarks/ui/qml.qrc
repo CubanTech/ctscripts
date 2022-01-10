@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>ImageWatermarked.qml</file>
+        <file>DialogAbout.qml</file>
+        <file>DialogAboutQt.qml</file>
+        <file>CheckDelegateSelectImage.qml</file>
+        <file>CheckIndicatorSelectImage.qml</file>
+        <file>DialogFolders.qml</file>
+        <file>DialogWatermark.qml</file>
+        <file>TaskCompletedOverlay.qml</file>
+        <file>FolderNoSelectedOverlay.qml</file>
+        <file>FullScreenImage.qml</file>
+    </qresource>
+</RCC>

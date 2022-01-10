@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>icons/folder.svg</file>
+        <file>tests/testImage.png</file>
+        <file>tests/testWatermark.png</file>
+        <file>icons/appIcon.png</file>
+        <file>icons/qt_logo_green_rgb.svg</file>
+        <file>icons/check.png</file>
+        <file>icons/check-circle.svg</file>
+        <file>icons/check-mark.svg</file>
+        <file>icons/folder-circle.svg</file>
+        <file>icons/folder-mark.svg</file>
+        <file>icons/close.svg</file>
+    </qresource>
+</RCC>
