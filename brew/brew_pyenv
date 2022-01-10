@@ -1,5 +1,6 @@
 
-PYVER=$(brew list --versions python | cut -d ' ' -f2)
+#PYVER=$(brew list --versions python | cut -d ' ' -f2)
+PYVER=$1
 PYMIN=$(echo "$PYVER" | cut -d. -f1,2)
 PYPKG=$(echo "python@$PYMIN")
 
